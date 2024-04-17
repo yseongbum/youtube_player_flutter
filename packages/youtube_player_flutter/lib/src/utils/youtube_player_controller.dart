@@ -277,7 +277,7 @@ class YoutubePlayerController extends ValueNotifier<YoutubePlayerValue> {
     updateValue(value.copyWith(isFullScreen: !value.isFullScreen));
     if (value.isFullScreen) {
       SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
+        //DeviceOrientation.portraitUp,
         ///화면 풀스크린 되어도 일단은 세로로 볼 수 있도록 함.
         DeviceOrientation.landscapeLeft,
         DeviceOrientation.landscapeRight,
