@@ -87,7 +87,7 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
                 ? _controller.pause()
                 : _controller.play(),
             child: AnimatedIcon(
-              icon: AnimatedIcons.play_pause,
+              icon: AnimatedIcons.ellipsis_search,
               progress: _animController.view,
               color: Colors.white,
               size: 60.0,
