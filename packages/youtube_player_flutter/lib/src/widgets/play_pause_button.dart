@@ -71,6 +71,7 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
       : _animController.reverse();
 
   void _toggleFullScreen() {
+    _controller.updateValue(_controller.value.copyWith(isFullScreen: !_controller.value.isFullScreen ));
 
     // updateValue(value.copyWith(isFullScreen: !value.isFullScreen));
     if (_controller.value.isFullScreen) {
@@ -90,7 +91,6 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
         _controller.play();
       }
     }
-    _controller.updateValue(_controller.value.copyWith(isFullScreen: !_controller.value.isFullScreen ));
 
   }
 
