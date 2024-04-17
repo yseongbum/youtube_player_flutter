@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../enums/player_state.dart';
 import '../utils/youtube_player_controller.dart';
@@ -69,8 +70,35 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
       ? _animController.forward()
       : _animController.reverse();
 
+  void _toggleFullScreen() {
+    if (_controller.value.isFullScreen) {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);  // 풀스크린 모드 해제
+      _controller.pause();
+    } else {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);  // 풀스크린 모드 활성화
+      _controller.play();
+    }
+    _controller.toggleFullScreenMode();  // 풀스크린 상태 토글
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget icon;
+    if (_controller.value.isFullScreen) {
+      icon = AnimatedIcon(
+        icon: AnimatedIcons.play_pause,
+        progress: _animController.view,
+        color: Colors.white,
+        size: 60.0,
+      );
+    } else {
+      icon = Icon(
+        Icons.fullscreen,
+        color: Colors.white,
+        size: 60.0,
+      );
+    }
+
     final _playerState = _controller.value.playerState;
     if ((!_controller.flags.autoPlay && _controller.value.isReady) ||
         _playerState == PlayerState.playing ||
@@ -83,15 +111,8 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(50.0),
-            onTap: () => _controller.value.isPlaying
-                ? _controller.pause()
-                : _controller.play(),
-            child: AnimatedIcon(
-              icon: AnimatedIcons.ellipsis_search,
-              progress: _animController.view,
-              color: Colors.white,
-              size: 60.0,
-            ),
+            onTap: _toggleFullScreen,
+            child: icon,
           ),
         ),
       );
