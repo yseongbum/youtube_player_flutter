@@ -71,6 +71,7 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
       : _animController.reverse();
 
   void _toggleFullScreen() {
+   // updateValue(value.copyWith(isFullScreen: !value.isFullScreen));
     if (_controller.value.isFullScreen) {
       if(_controller.value.isPlaying){
         _controller.pause();
@@ -82,6 +83,7 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
     } else {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);  // 풀스크린 모드 활성화
       _controller.toggleFullScreenMode();  // 풀스크린 상태 토글
+      _controller.updateValue(_controller.value.copyWith(isFullScreen: !_controller.value.isFullScreen ));
       if(_controller.value.isPlaying){
         _controller.pause();
       }else{
