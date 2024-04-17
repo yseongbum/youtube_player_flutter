@@ -72,13 +72,18 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
 
   void _toggleFullScreen() {
     if (_controller.value.isFullScreen) {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);  // 풀스크린 모드 해제
-      _controller.pause();
+      if(_controller.value.isPlaying){
+        _controller.pause();
+      }else{
+        _controller.play();
+      }
+      //SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);  // 풀스크린 모드 해제
+      //_controller.pause();
     } else {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);  // 풀스크린 모드 활성화
       _controller.play();
     }
-    _controller.toggleFullScreenMode();  // 풀스크린 상태 토글
+    //_controller.toggleFullScreenMode();  // 풀스크린 상태 토글
   }
 
   @override
